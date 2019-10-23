@@ -12,5 +12,7 @@ while True:
     # store the clientsocket object in clientsocket
     # store the client IP address in address
     clientsocket, address = s.accept()
-
+    # This is only a check to know is we're connected
     print(f"Connection from {address} has been established!")
+    # send information to the client
+    clientsocket.send(bytes("Welcome, I am the server", "utf-8"))
