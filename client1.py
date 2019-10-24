@@ -10,3 +10,7 @@ while True:
     msg = s.recv(1000)
     # decode the received message and print it out
     print(msg.decode("utf-8"))
+
+    st = input("say something: ")
+    s.send(bytes(st, "utf-8"))
+    

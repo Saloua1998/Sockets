@@ -8,11 +8,17 @@ s.bind((socket.gethostname(), 1234))
 # it has a queue of 5
 s.listen(5)
 
+clients = []
+
 while True:
     # store the clientsocket object in clientsocket
     # store the client IP address in address
     clientsocket, address = s.accept()
+    clients.append(clientsocket)
     # This is only a check to know is we're connected
     print(f"Connection from {address} has been established!")
     # send information to the client
-    clientsocket.send(bytes("Welcome, I am the server", "utf-8"))
+    for x in clients:
+        clientsocket.send(bytes("Welcome, I am the server", "utf-8"))
+
+
