@@ -17,16 +17,16 @@ def sendObject():
 
     else: pass
 
-
+sendObject()
 
 while True:
 
     # 8 is the buffersize
     msg = s.recv(1000)
     # decode the received message and print it out
-    print(msg.decode("utf-8"))
+    if msg:
+        print(msg.decode("utf-8"))
 
-    sendObject()
     
     
 
