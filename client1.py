@@ -6,35 +6,53 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # connect to the server IP and port
 connect = s.connect(('145.24.222.103', 8001))
 
-nameClient = input("client 1 or 2? ")
-
-
 def sendObject():
     if(nameClient == "1"):
         data = {"studentnr": input("studentnr: "), "classname": input("classname: "), "clientid": 1, "teamname": input(
             "teamname: "), "ip": input("ip: "), "secret": None, "status": None}
         d = json.dumps(data)
         s.send(bytes(d, "utf-8"))
-    else:
-        pass
+    else: pass
 
+def sendObjectFurther():
+    # AF_INET = IPv4 and SOCK_STREAM = TCP
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    # connect to the server IP and port
+    s.connect((socket.gethostname(), 8001))
+    s.send(bytes(newdata, "utf-8"))
 
-sendObject()
 
 while True:
     # 1000 is the buffersize
-    msg = s.recv(1000).decode("utf-8")
+    msg = s.recv(1000)
+    msg = msg.decode("utf-8")
     # decode the received message and print it out
-    if msg.startswith('{'):
-        status = json.loads(msg)["status"]
-        print(status)
-        # If status == "waiting for message 2" than send to server
-        if status == "waiting for message 2":
-            s.send(bytes(msg, "utf-8"))
+    if msg:
+        if msg.startswith('{'):
+            status = json.loads(msg)["status"]
+            print(msg)
+            # If status == "waiting for message 2" than send to server
+            if (status == 'waiting for message 2'):
+             # s.send(bytes(status, "utf-8"))
+             newdata = msg
+             sendObjectFurther()
         else:
-            s.send(bytes(msg, "utf-8"))
-    else:
-        print(msg)
+            print(msg)
+            nameClient = input("client 1 or 2? ")
+            if(nameClient == "2"):
+                server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                server.bind((socket.gethostname(), 8001))
+                server.bind
+                server.listen(5)
+                while True:
+                    # store the clientsocket object in clientsocket
+                    # store the client IP address in address
+                    clientsocket, address = server.accept()
+                    # This is only a check to know is we're connected
+                    msg = clientsocket.recv(1000)
+                    msg = msg.decode("utf-8")
+                    print(msg)
+            else: sendObject()
 
         # if type(json.loads(msg)) == 'dict':
         # print(type(json.loads(msg)))
