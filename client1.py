@@ -30,7 +30,6 @@ while True:
         print(status)
         # If status == "waiting for message 2" than send to server
         if status == "waiting for message 2":
-
             s.send(bytes(msg, "utf-8"))
         else:
             s.send(bytes(msg, "utf-8"))
