@@ -10,26 +10,33 @@ nameClient = input("client 1 or 2? ")
 
 
 def sendObject():
-    if(nameClient=="1"):
-        data = {"studentnr": input("studentnr: "), "classname": input("classname: "), "clientid": 1, "teamname": input("teamname: "), "ip":input("ip: "), "secret": None, "status": None}
+    if(nameClient == "1"):
+        data = {"studentnr": input("studentnr: "), "classname": input("classname: "), "clientid": 1, "teamname": input(
+            "teamname: "), "ip": input("ip: "), "secret": None, "status": None}
         d = json.dumps(data)
         s.send(bytes(d, "utf-8"))
+    else:
+        pass
 
-    else: pass
 
-
+sendObject()
 
 while True:
-
-    # 8 is the buffersize
-    msg = s.recv(1000)
+    # 1000 is the buffersize
+    msg = s.recv(1000).decode("utf-8")
     # decode the received message and print it out
-    print(msg.decode("utf-8"))
+    if msg.startswith('{'):
+        status = json.loads(msg)["status"]
+        print(status)
+        # If status == "waiting for message 2" than send to server
+        if status == "waiting for message 2":
 
-    sendObject()
-    
-    
+            s.send(bytes(msg, "utf-8"))
+        else:
+            s.send(bytes(msg, "utf-8"))
+    else:
+        print(msg)
 
-    
-
-    
+        # if type(json.loads(msg)) == 'dict':
+        # print(type(json.loads(msg)))
+        # print("Type: ", type(json.loads(msg)))
