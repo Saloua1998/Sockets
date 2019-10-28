@@ -13,7 +13,7 @@ def connectServerAgain():
     s.connect(('145.24.222.103', 8001))
 
 def sendObject():
-    data = {"studentnr": input("studentnr: "), "classname": input("classname: "), "clientid": 1, "teamname": input("teamname: "), "ip": input("ip: "), "secret": None, "status": None}
+    data = {"studentnr": input("studentnr: "), "classname": input("classname: "), "clientid": input("clientid: "), "teamname": input("teamname: "), "ip": input("ip: "), "secret": None, "status": None}
     d = json.dumps(data)
     s.send(bytes(d, "utf-8"))
 
@@ -23,6 +23,8 @@ def sendObjectFurther():
     # connect to the server IP and port
     s.connect((ipClient2, 1234))
     s.send(bytes(newdata, "utf-8"))
+
+
 
 
 while True:
@@ -58,8 +60,13 @@ while True:
                     msg = msg.decode("utf-8")
                     if msg:
                         print(msg)
+                        updatemsg = msg
+                        json.loads(updatemsg)["studentnr"] = input("studentnr: ")
+                        json.loads(updatemsg)["clientid"] = input("clientid: ")
+                        json.loads(updatemsg)["ip"] = input("ip: ")
                         connectServerAgain()
-                        sendObject()
+                        d = json.dumps(updatemsg)
+                        s.send(bytes(d, "utf-8"))
 
             
 
