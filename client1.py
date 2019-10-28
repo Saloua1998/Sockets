@@ -39,8 +39,7 @@ while True:
         else:
             print(msg)
             nameClient = input("client 1 or 2? ")
-            text = "IP of client 2: "
-            ipClient2 = input("")
+            ipClient2 = input("IP of client 2: ")
             if(nameClient == "2"):
                 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                 server.bind((socket.gethostname(), 8001))
