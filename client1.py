@@ -63,20 +63,12 @@ while True:
                         print(msg)
                         msg = json.loads(msg)
                         connectServerAgain()
-                        updatemsg = msg.update({"studentnr": input("studentnr: "), "clientid": int(input("clientid: ")), "ip": input("ip: ")})
-                        d = json.dumps(updatemsg)
+                        msg.update({"studentnr": input("studentnr: "), "clientid": int(input("clientid: ")), "ip": input("ip: ")})
+                        d = json.dumps(msg)
                         s.send(bytes(d, "utf-8"))
-                        print("done")
-                        print(msg) #{'studentnr': '0965662', 'classname': '1', 'clientid': 2, 'teamname': '1', 'ip': '145.137.11.122', 'secret': '75d219755a6a9e84656a5a8cb6b5177a8d61a1a25e5378831db9ef5e575c00f3', 'status': 'waiting for message 2'}
-                        print(updatemsg) #None
-                        print(d) #null
                         break
 
             
 
 
-            #--
-
-        # if type(json.loads(msg)) == 'dict':
-        # print(type(json.loads(msg)))
-        # print("Type: ", type(json.loads(msg)))
+ 
