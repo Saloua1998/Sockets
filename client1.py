@@ -7,18 +7,15 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 connect = s.connect(('145.24.222.103', 8001))
 
 def sendObject():
-    if(nameClient == "1"):
-        data = {"studentnr": input("studentnr: "), "classname": input("classname: "), "clientid": 1, "teamname": input(
-            "teamname: "), "ip": input("ip: "), "secret": None, "status": None}
-        d = json.dumps(data)
-        s.send(bytes(d, "utf-8"))
-    else: pass
+    data = {"studentnr": input("studentnr: "), "classname": input("classname: "), "clientid": 1, "teamname": input("teamname: "), "ip": input("ip: "), "secret": None, "status": None}
+    d = json.dumps(data)
+    s.send(bytes(d, "utf-8"))
 
 def sendObjectFurther():
     # AF_INET = IPv4 and SOCK_STREAM = TCP
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     # connect to the server IP and port
-    s.connect((ipClient2, 8001))
+    s.connect((ipClient2, 1234))
     s.send(bytes(newdata, "utf-8"))
 
 
@@ -40,12 +37,11 @@ while True:
             print(msg)
             nameClient = input("client 1 or 2? ")
             if (nameClient=="1"):
-                ipClient1 = input("IP of client 2: ")
+                ipClient2 = input("IP of client 2: ")
+                sendObject()
             else: 
-                ipClient2 = input("IP of client 1: ")
-            if(nameClient == "2"):
                 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                server.bind((ipClient1, 8001))
+                server.bind((socket.gethostname(), 1234))
                 server.listen(5)
                 while True:
                     # store the clientsocket object in clientsocket
@@ -54,8 +50,11 @@ while True:
                     # This is only a check to know is we're connected
                     msg = clientsocket.recv(1000)
                     msg = msg.decode("utf-8")
-                    print(msg)
-            else: sendObject()
+                    if msg:
+                        print(msg)
+                        sendObject():
+
+            
 
             #--
 
