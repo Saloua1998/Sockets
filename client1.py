@@ -57,6 +57,8 @@ while True:
                     print(msg)
             else: sendObject()
 
+            #--
+
         # if type(json.loads(msg)) == 'dict':
         # print(type(json.loads(msg)))
         # print("Type: ", type(json.loads(msg)))
