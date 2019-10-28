@@ -18,7 +18,7 @@ def sendObjectFurther():
     # AF_INET = IPv4 and SOCK_STREAM = TCP
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     # connect to the server IP and port
-    s.connect((socket.gethostname(), 8001))
+    s.connect((ipClient2, 8001))
     s.send(bytes(newdata, "utf-8"))
 
 
@@ -39,10 +39,11 @@ while True:
         else:
             print(msg)
             nameClient = input("client 1 or 2? ")
+            text = "IP of client 2: "
+            ipClient2 = input("")
             if(nameClient == "2"):
                 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                 server.bind((socket.gethostname(), 8001))
-                server.bind
                 server.listen(5)
                 while True:
                     # store the clientsocket object in clientsocket
