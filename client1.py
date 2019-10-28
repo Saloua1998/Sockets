@@ -4,7 +4,13 @@ import json
 # AF_INET = IPv4 and SOCK_STREAM = TCP
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # connect to the server IP and port
-connect = s.connect(('145.24.222.103', 8001))
+s.connect(('145.24.222.103', 8001))
+
+def connectServerAgain():
+    # AF_INET = IPv4 and SOCK_STREAM = TCP
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    # connect to the server IP and port
+    s.connect(('145.24.222.103', 8001))
 
 def sendObject():
     data = {"studentnr": input("studentnr: "), "classname": input("classname: "), "clientid": 1, "teamname": input("teamname: "), "ip": input("ip: "), "secret": None, "status": None}
@@ -52,7 +58,8 @@ while True:
                     msg = msg.decode("utf-8")
                     if msg:
                         print(msg)
-                        sendObject():
+                        connectServerAgain()
+                        sendObject()
 
             
 
