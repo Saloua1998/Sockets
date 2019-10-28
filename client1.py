@@ -13,7 +13,7 @@ def connectServerAgain():
     s.connect(('145.24.222.103', 8001))
 
 def sendObject():
-    data = {"studentnr": input("studentnr: "), "classname": input("classname: "), "clientid": input("clientid: "), "teamname": input("teamname: "), "ip": input("ip: "), "secret": None, "status": None}
+    data = {"studentnr": input("studentnr: "), "classname": input("classname: "), "clientid": int(input("clientid: ")), "teamname": input("teamname: "), "ip": input("ip: "), "secret": None, "status": None}
     d = json.dumps(data)
     s.send(bytes(d, "utf-8"))
 
@@ -58,17 +58,22 @@ while True:
                     # This is only a check to know is we're connected
                     msg = clientsocket.recv(1000)
                     msg = msg.decode("utf-8")
+                    
                     if msg:
                         print(msg)
-                        updatemsg = msg
-                        json.loads(updatemsg)["studentnr"] = input("studentnr: ")
-                        json.loads(updatemsg)["clientid"] = input("clientid: ")
-                        json.loads(updatemsg)["ip"] = input("ip: ")
+                        msg = json.loads(msg)
                         connectServerAgain()
+                        updatemsg = msg.update({"studentnr": input("studentnr: "), "clientid": int(input("clientid: ")), "ip": input("ip: ")})
                         d = json.dumps(updatemsg)
                         s.send(bytes(d, "utf-8"))
+                        print("done")
+                        print(msg) #{'studentnr': '0965662', 'classname': '1', 'clientid': 2, 'teamname': '1', 'ip': '145.137.11.122', 'secret': '75d219755a6a9e84656a5a8cb6b5177a8d61a1a25e5378831db9ef5e575c00f3', 'status': 'waiting for message 2'}
+                        print(updatemsg) #None
+                        print(d) #null
+                        break
 
             
+
 
             #--
 
