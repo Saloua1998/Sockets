@@ -11,7 +11,7 @@ import json
 # AF_INET = IPv4 and SOCK_STREAM = TCP
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # connect to the serverclient IP and port
-s.connect(('145.24.222.103', 8001))
+s.connect(('145.24.222.103', 8011))
 
 #it sends object to server
 def sendObject():
