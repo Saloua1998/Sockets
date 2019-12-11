@@ -9,9 +9,6 @@ import socket
 import json
 
 
-beclient=None
-
-
 def getIP():
     hostname = socket.gethostname() 
     ip = socket.gethostbyname(hostname)
