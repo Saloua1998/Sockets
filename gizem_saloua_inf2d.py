@@ -4,16 +4,13 @@
 # Classname:     INF2D           INF2D            #
 ###################################################
 
-
 import socket
 import json
-
 
 def getIP():
     hostname = socket.gethostname() 
     ip = socket.gethostbyname(hostname)
     return ip 
-
 
 #it sends object to client 2
 def sendObjectFurther(data, ipClient2):
@@ -72,8 +69,6 @@ def server(nameClient):
             nameClient="2"
             client(nameClient,msg)
   
-            
-
 nameClient = input("client 1 or 2? ")
 print("Your IP: " + getIP())
 
