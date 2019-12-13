@@ -22,6 +22,7 @@ def sendObjectFurther(data, ipClient2):
 
 def client(nameClient,jsonmsg):
         ipClient2 =""
+        done=False
         # AF_INET = IPv4 and SOCK_STREAM = TCP
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         # connect to the serverclient IP and port
@@ -45,10 +46,13 @@ def client(nameClient,jsonmsg):
                         s.send(bytes(d, "utf-8"))
                         
                 else:
-                    msg = json.loads(jsonmsg)
-                    msg.update({"studentnr": input("studentnr: "), "clientid": int(input("clientid: ")), "ip": input("ip: ")})
-                    d = json.dumps(msg)
-                    s.send(bytes(d, "utf-8"))
+                    if not(done):
+                        msg = json.loads(jsonmsg)
+                        msg.update({"studentnr": input("studentnr: "), "clientid": int(input("clientid: ")), "ip": input("ip: ")})
+                        d = json.dumps(msg)
+                        s.send(bytes(d, "utf-8"))
+                        done=True
+                    else: break
 
 def server(nameClient):
     #client 2 becomes server
